@@ -1,5 +1,19 @@
+/home/alex/.zshrc
+/home/alex/.zshrc
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# Add to global variables
+# yarn
+export PATH="$(yarn global bin):$PATH"
+
+# gcc
+export LDFLAGS="-L/home/linuxbrew/.linuxbrew/opt/isl@0.18/lib"
+export CPPFLAGS="-I/home/linuxbrew/.linuxbrew/opt/isl@0.18/include"
+export PKG_CONFIG_PATH="/home/linuxbrew/.linuxbrew/opt/isl@0.18/lib/pkgconfig"
+
+# composer
+export PATH="$HOME/.config/composer/vendor/bin:$PATH"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/alex/.oh-my-zsh"
@@ -68,7 +82,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -89,8 +103,6 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-export ANDROID_SDK=/home/alex/Android/Sdk
-
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -99,12 +111,26 @@ export ANDROID_SDK=/home/alex/Android/Sdk
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias c="clear"
+
+alias g="git"
 alias zshconfig="nano ~/.zshrc"
 alias _zshconfig="source ~/.zshrc"
+alias c="clear"
+alias r="rm -rf"
 alias v="vagrant"
-alias g="git"
-alias h="heroku"
 alias y="yarn"
-alias vssh="v ssh"
+
 alias hosts="sudo nano /etc/hosts"
+
+alias art="php artisan"
+
+alias dev="cd ~/code"
+alias study="cd ~/code/study"
+
+alias sail="bash vendor/bin/sail"
+
+alias pest="./vendor/bin/pest"
+
+function mk() {
+mkdir "$1" && cd "$1"
+}
