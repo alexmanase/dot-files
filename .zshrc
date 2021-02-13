@@ -111,26 +111,30 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-alias g="git"
 alias zshconfig="nano ~/.zshrc"
 alias _zshconfig="source ~/.zshrc"
 alias c="clear"
-alias r="rm -rf"
-alias v="vagrant"
-alias y="yarn"
 
 alias hosts="sudo nano /etc/hosts"
 
+# Git
+alias g="git"
+alias gc="git commit -a -m"
+
+# File Management
+alias demo="cd ~/dev/Demo"
+alias repo="cd ~/dev/Repositories"
+alias r="gio trash"
+
+# Laravel
 alias art="php artisan"
-
-alias dev="cd ~/code"
-alias study="cd ~/code/study"
-
-alias sail="bash vendor/bin/sail"
-
+alias s="bash vendor/bin/sail"
 alias pest="./vendor/bin/pest"
+alias a="s artisan"
+alias t="s test"
 
-function mk() {
-mkdir "$1" && cd "$1"
-}
+# Frontend
+alias d="yarn dev"
+alias y="yarn"
+alias yd="yarn && yarn dev"
+alias ryd="rm -rf node_modules && rm -rf .next && rm -rf package-lock.json && rm -rf yarn.lock && y && d"
