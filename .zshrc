@@ -1,28 +1,23 @@
-/home/alex/.zshrc
-/home/alex/.zshrc
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# Add to global variables
-# yarn
-export PATH="$(yarn global bin):$PATH"
-
-# gcc
-export LDFLAGS="-L/home/linuxbrew/.linuxbrew/opt/isl@0.18/lib"
-export CPPFLAGS="-I/home/linuxbrew/.linuxbrew/opt/isl@0.18/include"
-export PKG_CONFIG_PATH="/home/linuxbrew/.linuxbrew/opt/isl@0.18/lib/pkgconfig"
-
-# composer
-export PATH="$HOME/.config/composer/vendor/bin:$PATH"
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/alex/.oh-my-zsh"
+export ZSH=$HOME/.oh-my-zsh
+
+export PATH=/home/alex/bin:$HOME/.config/composer/vendor/bin:$PATH
+export PATH="$HOME/.basher/bin:$PATH"
+
+eval "$(basher init - zsh)" 
+
+
+#export DOCKER_HOST=unix:///run/user/1000/docker.sock
+
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="sammy"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -59,6 +54,8 @@ ZSH_THEME="robbyrussell"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
+# Caution: this setting can cause issues with multiline prompts (zsh 5.7.1 and newer seem to work)
+# See https://github.com/ohmyzsh/ohmyzsh/issues/5765
 # COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
@@ -111,30 +108,58 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Aliases
+
 alias zshconfig="nano ~/.zshrc"
 alias _zshconfig="source ~/.zshrc"
 alias c="clear"
-
 alias hosts="sudo nano /etc/hosts"
 
 # Git
 alias g="git"
 alias gc="git commit -a -m"
+alias wip="git add .;git commit -m 'wip';git push"
+alias nah="git reset --hard; git clean -df"
 
 # File Management
-alias demo="cd ~/dev/Demo"
-alias repo="cd ~/dev/Repositories"
+alias demo="cd ~/Documents/Code/Demo"
+alias repo="cd ~/Documents/Code/Repositories"
+alias code="cd ~/Documents/Code"
 alias r="gio trash"
+alias open="xdg-open"
 
 # Laravel
 alias art="php artisan"
 alias s="bash vendor/bin/sail"
-alias pest="./vendor/bin/pest"
-alias a="s artisan"
-alias t="s test"
+alias p="./vendor/bin/pest"
+alias pf="./vendor/bin/pest --filter"
+alias a="art"
+alias t="a test"
+alias mfs="art migrate:fresh --seed"
+alias b-formatter="./node_modules/.bin/blade-formatter --write resources/**/*.blade.php"
+alias phpinsights="./vendor/bin/phpinsights"
+alias phpstan="./vendor/bin/phpstan"
+alias zero="php application"
 
 # Frontend
 alias d="yarn dev"
 alias y="yarn"
 alias yd="yarn && yarn dev"
-alias ryd="rm -rf node_modules && rm -rf .next && rm -rf package-lock.json && rm -rf yarn.lock && y && d"
+alias ryd="rm -rf node_modules; rm -rf yarn.lock; rm -rf package-lock.json; yd"
+alias tsc="c && node_modules/typescript/bin/tsc"
+
+source /home/alex/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+export PATH="/usr/local/opt/php@8.0/bin:$PATH"
+
+function db {
+    if [ "$1" = "refresh" ]; then
+        mysql -uroot -e "drop database $2; create database $2"
+    elif [ "$1" = "create" ]; then
+        mysql -uroot -e "create database $2"
+    elif [ "$1" = "drop" ]; then
+        mysql -uroot -e "drop database $2"
+    elif [ "$1" = "list" ]; then
+        mysql -uroot -e "show databases" | perl -p -e's/\|| *//g'
+    fi
+}
