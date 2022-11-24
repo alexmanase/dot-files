@@ -1,0 +1,3 @@
+# About
+
+Personal `.zshrc` configuration.
