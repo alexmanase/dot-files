@@ -43,21 +43,11 @@ function db {
     fi
 }
 
-nlp()
-{
-    composer create-project laravel/laravel "$HOME"/Documents/repos/"$1"
-    cd "$HOME"/Documents/repos/"$1"
-    git init
-    git add .
-    git commit -m "Initial commit"
-}
-
 alias ..="cd .."
 alias cd..="cd .."
 
 alias chmox='chmod +x'
 
-alias hosts='subl /etc/hosts'
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p'"
 
@@ -65,7 +55,6 @@ alias localip="ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}
 alias reloadshell="source ~/.zshrc"
 alias ll="ls -laF"
 alias c="clear"
-alias switch-php="sudo update-alternatives --config php"
 alias o="open ."
 alias wifipass="security find-generic-password -wa"
 
@@ -87,10 +76,11 @@ alias force="git push --force"
 alias resolve="git add . && git commit --no-edit"
 alias deploy_commit="git commit --allow-empty -m 'deploy'"
 alias status="git status"
-alias cleanup="commit 'cleanup'"
+alias cleanup="commit 'chore: cleanup'"
 
 # PHP
-alias pestfresh="composer require pestphp/pest --dev --with-all-dependencies && p --init && rm -rf tests/ExampleTest.php && commit 'install Pest'"
+# alias php="php82"
+alias pestfresh="composer require pestphp/pest --dev --with-all-dependencies && p --init && rm -rf tests/ExampleTest.php && commit 'feat: install Pest'"
 alias cfresh="rm -rf vendor/ composer.lock && composer install"
 alias artisan="php artisan"
 alias a="php artisan"
@@ -102,21 +92,22 @@ alias pf="pest --filter"
 alias pp="pest --parallel"
 alias pc="pest --coverage"
 alias ppc="pest --parallel --coverage"
+alias pdf="php artisan pest:dusk --filter"
+alias pd="php artisan pest:dusk"
 alias pa="./vendor/bin/phpstan analyse"
-alias pcs="php-cs-fixer fix ."
-alias 'blade-format'="node_modules/.bin/blade-formatter"
+alias bf="echo 'blade-format --write \"./resources/**/*.blade.php\"' && blade-formatter --write './resources/**/*.blade.php'"
 alias pint="./vendor/bin/pint"
 
 # JS
-alias yfresh="rm -rf node_modules/ package-lock.json yarn.lock && yarn"
+alias yfresh="rm -rf node_modules/ package-lock.json yarn.lock pnpm-lock.yaml && yarn install"
+alias npmfresh="rm -rf node_modules/ package-lock.json yarn.lock pnpm-lock.yaml && npm install"
 alias y="yarn"
-alias yd="yarn && yarn dev"
+alias yd="yarn install && yarn dev"
 alias d="yarn dev"
-alias prettier="./node_modules/.bin/prettier --write"
 
 export PATH="$HOME/.composer/vendor/bin:$PATH"
 export PATH=/usr/local/bin:$PATH
 export PATH=$PATH:$HOME/bin
 export NPM_CONFIG_PREFIX=~/.npm-global
 export PATH=$PATH:~/.npm-global/bin
-export EDITOR="/usr/local/bin/mate -w"
+export EDITOR="/usr/bin/nano"
